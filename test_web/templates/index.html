@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Weather Dashboard</h1>
+    <div id="plot1" style="width:100%;height:400px;"></div>
+    <div id="plot2" style="width:100%;height:400px;"></div>
+
+    <script>
+        function fetchData() {
+            fetch('/data')
+                .then(response => response.json())
+                .then(data => updatePlots(data));
+        }
+    
+        function updatePlots(data) {
+            // var xValues = Array.from(Array(48).keys()); 
+            var timeStamps_history = data.timestamps_history.map(ts => new Date(ts));
+            var timeStamps_pred = data.timestamps_pred.map(ts => new Date(ts));
+            var trace1 = {
+                x: timeStamps_history,
+                y: data.temperature,
+                name: 'Temperature',
+                type: 'scatter'
+            };
+            
+            var trace2 = {
+                x: timeStamps_history,
+                y: data.humidity,
+                name: 'Humidity',
+                type: 'scatter'
+            };
+    
+            var trace3 = {
+                x: timeStamps_history,
+                y: data.pressure,
+                name: 'Pressure',
+                type: 'scatter'
+            };
+    
+            var trace4 = {
+                x: timeStamps_pred,
+                y: data.precipitation,
+                name: 'Precipitation',
+                type: 'scatter'
+            };
+    
+            var layout1 = {
+                title: 'Temperature, Humidity, and Pressure',
+                xaxis: { title: 'Time'
+                    //tickformat: "%d-%m %H:%M"
+                },
+                yaxis: { title: 'Values' }
+            };
+    
+            var layout2 = {
+                title: 'Precipitation',
+                xaxis: { title: 'Time',
+                   tickformat: "%d-%m %H:%M"
+                },
+                yaxis: { title: 'Values' }
+            };
+    
+            Plotly.newPlot('plot1', [trace1, trace2, trace3], layout1);
+            Plotly.newPlot('plot2', [trace4], layout2);
+        }
+    
+        // Fetch data every hour (3600000 ms)
+        setInterval(fetchData, 3600000);
+        fetchData(); // Initial fetch
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,12 @@
+BEGIN;
+
+CREATE TABLE IF NOT EXISTS
+data (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    date DATETIME NOT NULL,
+    temperature REAL DEFAULT 0,
+    humidity REAL DEFAULT 0,
+    pressure REAL DEFAULT 0,
+    precipitation REAL DEFAULT 0
+);
+COMMIT;
