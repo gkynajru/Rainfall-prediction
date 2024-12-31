@@ -23,7 +23,7 @@ db_manager = DatabaseManager()
 timezone = pytz.timezone('Asia/Bangkok')
 
 #Load model_ifs and preprocessor_ifs
-model_ifs = tf.saved_model.load('models')
+model_ifs = tf.saved_model.load('model_ifs')
 infer = model_ifs.signatures["serving_default"] # Access the predict function within the Savedmodel_ifs
 preprocessor_ifs = joblib.load('models/preprocessor_ifs.joblib')
 
