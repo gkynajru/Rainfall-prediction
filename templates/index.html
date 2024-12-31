@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rainfall Prediction Comparison</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@1.0.0/dist/chartjs-adapter-moment.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Rainfall Prediction Comparison</h1>
+            <!-- <p>LSTM Model vs IFS Model Predictions</p> -->
+        </div>
+
+        <div class="controls">
+            <div class="select-wrapper">
+                <select id="locationSelect">
+                    <option value="Ky Thuong">Ky Thuong</option>
+                    <option value="CC Thuy Loi">CC Thuy Loi</option>
+                    <option value="My Loc">My Loc</option>
+                    <option value="Van Trach">Van Trach</option>
+                    <option value="Truong Xuan">Truong Xuan</option>
+                    <option value="Trooc Trau">Trooc Trau</option>
+                    <option value="Cua Tung">Cua Tung</option>
+                    <option value="Huong Linh">Huong Linh</option>
+                    <option value="Trieu Ai">Trieu Ai</option>
+                </select>
+            </div>
+            <button id="updateButton" onclick="updateData()">Update Data</button>
+        </div>
+
+        <div class="chart-wrapper">
+            <canvas id="rainfallChart"></canvas>
+        </div>
+
+        <div class="metrics">
+            <div class="metric-card">
+                <div class="metric-value" id="lstmAvg">-</div>
+                <div class="metric-label">LSTM Average (mm)</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="ifsAvg">-</div>
+                <div class="metric-label">IFS Average (mm)</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="vrainAvg">-</div>
+                <div class="metric-label">Vrain Average (mm)</div>
+            </div>    
+            <div class="metric-card">
+                <div class="metric-value" id="maxRainfall">-</div>
+                <div class="metric-label">Max Rainfall (mm)</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
