@@ -1,8 +1,8 @@
 # MQTT Configuration
 BROKER = "mqtt.flespi.io"
 PORT = 8883
-TOPIC = "topic/rain"
-TOKEN = "FlespiToken lCG8yJPUWRc9awe3M2AaTuKcqd5N4Nvgd1cByPklwkiuGmogcOgW6QWmURXOujSx"
+TOPIC = "RAINFALL_FORCAST_SYSTEM"
+TOKEN = "KBuTL4GcQIdeStibgS2YOd6YTJq1AydfcAde7ERrlOx1hJGaJjgPgAGe4GMqNVqc"
 
 FEATURES = [
         "temperature_2m", "relative_humidity_2m", "dew_point_2m",
