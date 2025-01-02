@@ -24,16 +24,16 @@ timezone = pytz.timezone('Asia/Bangkok')
 
 #Load model_ifs and preprocessor_ifs
 model_ifs = tf.saved_model.load('model_ifs')
-infer = model_ifs.signatures["serving_default"] # Access the predict function within the Savedmodel_ifs
+infer_ifs = model_ifs.signatures["serving_default"] # Access the predict function within the Savedmodel
 preprocessor_ifs = joblib.load('model_ifs/preprocessor_ifs.joblib')
 
 #Load model_vrain and processor_vrain
 model_vrain = tf.saved_model.load('model_vrain')
-infer = model_vrain.signatures["serving_default"]
+infer_vrain = model_vrain.signatures["serving_default"]
 preprocessor_vrain = joblib.load('model_vrain/preprocessor_vrain.joblib')
 
 def prepare_data_for_prediction(location_data, location):
-    """Prepare data for prediction using the preprocessor_ifs"""
+    """Prepare data for prediction using the corresponding preprocessor"""
     try:
         # Sort by time
         location_data = location_data.sort_values('time')
@@ -90,7 +90,7 @@ def update_data():
                 # X = preprocessor_ifs.process_location(location_data, location, is_training=False)[0]
 
                 # Make prediction
-                pred = infer(tf.constant(X, dtype=tf.float32))['output_0']
+                pred = infer_ifs(tf.constant(X, dtype=tf.float32))['output_0']
 
                 # Inverse transform the predictions
                 rainfall_pred = preprocessor_ifs.inverse_transform_rainfall(pred[0])
@@ -118,7 +118,7 @@ def update_data():
                 vrain_location_data['location_encoded'] = location_vrain_encoded
 
                 X = prepare_data_for_prediction(location_data, location)
-                pred = infer(tf.constant(X, dtype=tf.float32))['output_0']
+                pred = infer_vrain(tf.constant(X, dtype=tf.float32))['output_0']
                 rainfall_pred = preprocessor_ifs.inverse_transform_rainfall(pred[0])
 
                 last_time = location_data['time'].max()

@@ -102,7 +102,7 @@ class DatabaseManager:
         updated_df['time'] = updated_df['time'].dt.strftime('%Y-%m-%dT%H:%M')            
         updated_df.to_csv(self.ifs_predictions_file, index=False)
 
-    def get_comparison_data(self, location, hours=48):
+    def get_comparison_data(self, location, hours=0):
         """Get recent LSTM, IFS predictions and Vrain prediction for comparison"""
         lstm_pred = pd.read_csv(self.predictions_file)
         ifs_pred = pd.read_csv(self.ifs_predictions_file)
@@ -117,17 +117,17 @@ class DatabaseManager:
         
         recent_lstm = lstm_pred[
             (lstm_pred['location'] == location) & 
-            (lstm_pred['time'] > recent_time)
+            (lstm_pred['time'] >= recent_time)
         ].copy()
 
         recent_ifs = ifs_pred[
             (ifs_pred['location'] == location) & 
-            (ifs_pred['time'] > recent_time)
+            (ifs_pred['time'] >= recent_time)
         ].copy()
         
         recent_vrain = vrain_pred[
             (vrain_pred['location'] == location) &
-            (vrain_pred['time'] > recent_time)
+            (vrain_pred['time'] >= recent_time)
         ].copy()
 
         recent_lstm['time'] = recent_lstm['time'].dt.strftime('%Y-%m-%dT%H:%M')
