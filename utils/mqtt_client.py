@@ -38,13 +38,13 @@ def calculate_average_predictions(predictions, locations):
 
 def format_mqtt_message(location, ifs_pred, lstm_pred, vrain_pred):
     """Format prediction data for MQTT message"""
-    return f"{location}||{ifs_pred[0]}|{ifs_pred[1]}|{ifs_pred[2]}|{lstm_pred[0]}|{lstm_pred[1]}|{lstm_pred[2]}|{vrain_pred[0]}|{vrain_pred[1]}|{vrain_pred[2]}"
+    return f"{location}||{ifs_pred[0]}|{ifs_pred[1]}|{ifs_pred[2]}|{lstm_pred[0]}|{lstm_pred[1]}|{lstm_pred[2]}|{vrain_pred[0]}|{vrain_pred[1]}|{vrain_pred[2]}|"
 
 def on_mqtt_message(client, userdata, message):
-    if message.payload.decode() == "start":
+    if message.payload.decode() == "START":
         current_time = datetime.now(timezone)
         formatted_time = current_time.strftime('%d.%m.%Y - %H:%M')
-        client.publish(TOPIC, formatted_time)        
+        client.publish(TOPIC, f'100||{formatted_time}|')        
         forecast_hours = [1, 6, 24]
         
         # Get predictions for each model
@@ -113,3 +113,4 @@ def create_mqtt_client():
     client.connect(BROKER, PORT, 60)
     threading.Thread(target=client.loop_forever, daemon=True).start()
     return client
+
