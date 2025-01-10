@@ -4,11 +4,14 @@ from utils.data_generator import WeatherDataFetcher
 from utils.database_manager import DatabaseManager
 from config import BROKER, PORT, TOPIC, TOKEN
 import numpy as np
+import pandas as pd
 import ssl
 from datetime import datetime, timedelta
 import pytz
-import pandas as pd
+from flask import Flask
 import time
+
+app = Flask(__name__)
 
 LOCATION_GROUPS = {
     '110': ['Ky Thuong', 'CC Thuy Loi', 'My Loc'],
@@ -40,13 +43,6 @@ def calculate_average_predictions(predictions, locations):
 def format_mqtt_message(location, ifs_pred, lstm_pred, vrain_pred):
     """Format prediction data for MQTT message"""
     return f"{location}||{ifs_pred[0]}|{ifs_pred[1]}|{ifs_pred[2]}|{lstm_pred[0]}|{lstm_pred[1]}|{lstm_pred[2]}|{vrain_pred[0]}|{vrain_pred[1]}|{vrain_pred[2]}|"
-
-def publish_with_delay(client, messages):
-    """Publish messages with a delay between each transmission"""
-    for message in messages:
-        client.publish(TOPIC, message)
-        print(f"Message sent: {message}")
-        time.sleep(5) 
 
 def publish_sequence(client, timestamp_msg, location_messages):
     """Publish timestamp and location messages with proper delays"""
@@ -85,7 +81,6 @@ def on_mqtt_message(client, userdata, message):
         
             all_predictions[location] = location_preds
 
-        # Prepare all messages first
         location_messages = []
         for region, locations in LOCATION_GROUPS.items():
             region_preds = {
@@ -125,3 +120,9 @@ def create_mqtt_client():
     client.connect(BROKER, PORT, 300)
     threading.Thread(target=client.loop_forever, daemon=True).start()
     return client
+
+if __name__ == '__main__':
+    # Initial mqtt client
+    create_mqtt_client()
+
+    app.run(host='0.0.0.0', port=5000)
