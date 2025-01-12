@@ -2,7 +2,7 @@
 BROKER = "mqtt.flespi.io"
 PORT = 8883
 TOPIC = "RAINFALL_FORCAST_SYSTEM"
-TOKEN = "KBuTL4GcQIdeStibgS2YOd6YTJq1AydfcAde7ERrlOx1hJGaJjgPgAGe4GMqNVqc"
+TOKEN = "YOUR_TOKEN"
 
 FEATURES = [
         "temperature_2m", "relative_humidity_2m", "dew_point_2m",
