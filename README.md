@@ -135,7 +135,7 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 
 ## 📧 Contact
 
-Your Name - [ntgiaky@gmail.com](mailto:ntgiaky@gmail.com)
+Nguyen Tran Gia Ky - [ntgiaky@gmail.com](mailto:ntgiaky@gmail.com)
 
 Project Link: [https://github.com/gkynajru/Rainfall-prediction](https://github.com/gkynajru/Rainfall-prediction)
 
