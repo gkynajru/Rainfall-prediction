@@ -54,8 +54,12 @@ cd weather-prediction
 
 # Install dependencies
 pip install -r requirements.txt
+
+# Authenticate your ngrok agent.
+ngrok config add-authtoken $YOUR_AUTHTOKEN
 ```
 
+# 
 ## ⚙️ Configuration
 
 The system uses a configuration dictionary that can be modified in `config.py`:
@@ -97,7 +101,7 @@ The system currently supports predictions for the following locations in Vietnam
 python app.py
 ```
 
-The server will start on `http://localhost:5000`
+The server will start on `http://localhost:5000` or you can use ngrok tunnel displayed in the console.
 
 ### API Endpoints
 
