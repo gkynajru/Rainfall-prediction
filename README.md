@@ -142,6 +142,7 @@ Project Link: [https://github.com/gkynajru/Rainfall-prediction](https://github.c
 ## 🙏 Acknowledgments
 
 - [Open-Meteo](https://open-meteo.com/) for providing weather data
+- [Vrain](https://vrain.vn) for providing rain gauge data using a dedicated rain gauge system
 - [TensorFlow](https://www.tensorflow.org/) for the deep learning framework
 - [Flask](https://flask.palletsprojects.com/) for the web framework
-- [Vrain](https://vrain.vn) for providing rain gauge data using a dedicated rain gauge system
+- [Paho MQTT](https://eclipse.dev/paho/files/paho.mqtt.python/html/client.html) for the MQTT framework
